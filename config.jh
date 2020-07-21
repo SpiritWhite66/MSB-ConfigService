@@ -1,0 +1,34 @@
+entity ConfigCommon {
+	id Integer required
+    idBot Integer required
+  	activated Boolean required
+    type TypeConfig required
+}
+enum TypeConfig {
+    COMMAND, EVENT, OTHER
+}
+entity ChannelLinked {
+	name String 
+	idChannel String 
+}
+
+entity UserAuthorized {
+	user String required
+    idDiscord String required
+}
+
+entity Alias {
+	alias String
+}
+
+entity Role { 
+	idDiscord String required
+	name String required
+}
+
+relationship ManyToMany {
+  ConfigCommon{alias(alias)} to Alias{configCommon}
+  ConfigCommon{channelLinked(idChannel)} to ChannelLinked{configCommon}
+  ConfigCommon{userAuthorized(user)} to UserAuthorized{configCommon}
+  ConfigCommon{role(name)} to Role{configCommon}
+}

@@ -1,0 +1,73 @@
+{
+  "name": "ConfigCommon",
+  "fields": [
+    {
+      "fieldName": "idBot",
+      "fieldType": "Integer",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "activated",
+      "fieldType": "Boolean",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "TypeConfig",
+      "fieldValues": "COMMAND,EVENT,OTHER",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "alias",
+      "otherEntityRelationshipName": "configCommon",
+      "relationshipName": "alias",
+      "otherEntityField": "alias",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "channelLinked",
+      "otherEntityRelationshipName": "configCommon",
+      "relationshipName": "channelLinked",
+      "otherEntityField": "idChannel",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "userAuthorized",
+      "otherEntityRelationshipName": "configCommon",
+      "relationshipName": "userAuthorized",
+      "otherEntityField": "user",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "role",
+      "otherEntityRelationshipName": "configCommon",
+      "relationshipName": "role",
+      "otherEntityField": "name",
+      "ownerSide": true
+    }
+  ],
+  "changelogDate": "20200721220955",
+  "entityTableName": "config_common",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "ConfigService",
+  "applications": "*",
+  "microserviceName": "ConfigService"
+}

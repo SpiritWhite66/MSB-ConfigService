@@ -1,0 +1,31 @@
+{
+  "name": "Alias",
+  "fields": [
+    {
+      "fieldName": "alias",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "configCommon",
+      "otherEntityRelationshipName": "alias",
+      "relationshipName": "configCommon",
+      "otherEntityField": "id",
+      "ownerSide": false
+    }
+  ],
+  "changelogDate": "20200721221255",
+  "entityTableName": "alias",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "ConfigService",
+  "applications": "*",
+  "microserviceName": "ConfigService"
+}
