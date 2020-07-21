@@ -1,0 +1,41 @@
+{
+  "name": "Role",
+  "fields": [
+    {
+      "fieldName": "idDiscord",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "configCommon",
+      "otherEntityRelationshipName": "role",
+      "relationshipName": "configCommon",
+      "otherEntityField": "id",
+      "ownerSide": false
+    }
+  ],
+  "changelogDate": "20200721221355",
+  "entityTableName": "role",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "ConfigService",
+  "applications": "*",
+  "microserviceName": "ConfigService"
+}

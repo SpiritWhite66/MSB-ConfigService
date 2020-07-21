@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <!--
+        Added the constraints for entity ConfigCommon.
+    -->
+    <changeSet id="20200721220955-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="config_common_id"
+                                 baseTableName="config_common_alias"
+                                 constraintName="fk_config_common_alias_config_common_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="config_common"/>
+
+        <addForeignKeyConstraint baseColumnNames="alias_id"
+                                 baseTableName="config_common_alias"
+                                 constraintName="fk_config_common_alias_alias_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="alias"/>
+        
+        <addForeignKeyConstraint baseColumnNames="config_common_id"
+                                 baseTableName="config_common_channel_linked"
+                                 constraintName="fk_config_common_channel_linked_config_common_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="config_common"/>
+
+        <addForeignKeyConstraint baseColumnNames="channel_linked_id"
+                                 baseTableName="config_common_channel_linked"
+                                 constraintName="fk_config_common_channel_linked_channel_linked_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="channel_linked"/>
+        
+        <addForeignKeyConstraint baseColumnNames="config_common_id"
+                                 baseTableName="config_common_user_authorized"
+                                 constraintName="fk_config_common_user_authorized_config_common_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="config_common"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_authorized_id"
+                                 baseTableName="config_common_user_authorized"
+                                 constraintName="fk_config_common_user_authorized_user_authorized_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_authorized"/>
+        
+        <addForeignKeyConstraint baseColumnNames="config_common_id"
+                                 baseTableName="config_common_role"
+                                 constraintName="fk_config_common_role_config_common_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="config_common"/>
+
+        <addForeignKeyConstraint baseColumnNames="role_id"
+                                 baseTableName="config_common_role"
+                                 constraintName="fk_config_common_role_role_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="role"/>
+        
+    </changeSet>
+</databaseChangeLog>
