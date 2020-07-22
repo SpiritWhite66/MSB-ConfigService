@@ -32,8 +32,8 @@ public class ChannelLinkedResourceIT {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_ID_CHANNEL = "AAAAAAAAAA";
-    private static final String UPDATED_ID_CHANNEL = "BBBBBBBBBB";
+    private static final String DEFAULT_ID_CHANNEL_DISCORD = "AAAAAAAAAA";
+    private static final String UPDATED_ID_CHANNEL_DISCORD = "BBBBBBBBBB";
 
     @Autowired
     private ChannelLinkedRepository channelLinkedRepository;
@@ -55,7 +55,7 @@ public class ChannelLinkedResourceIT {
     public static ChannelLinked createEntity(EntityManager em) {
         ChannelLinked channelLinked = new ChannelLinked()
             .name(DEFAULT_NAME)
-            .idChannel(DEFAULT_ID_CHANNEL);
+            .idChannelDiscord(DEFAULT_ID_CHANNEL_DISCORD);
         return channelLinked;
     }
     /**
@@ -67,7 +67,7 @@ public class ChannelLinkedResourceIT {
     public static ChannelLinked createUpdatedEntity(EntityManager em) {
         ChannelLinked channelLinked = new ChannelLinked()
             .name(UPDATED_NAME)
-            .idChannel(UPDATED_ID_CHANNEL);
+            .idChannelDiscord(UPDATED_ID_CHANNEL_DISCORD);
         return channelLinked;
     }
 
@@ -91,7 +91,7 @@ public class ChannelLinkedResourceIT {
         assertThat(channelLinkedList).hasSize(databaseSizeBeforeCreate + 1);
         ChannelLinked testChannelLinked = channelLinkedList.get(channelLinkedList.size() - 1);
         assertThat(testChannelLinked.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testChannelLinked.getIdChannel()).isEqualTo(DEFAULT_ID_CHANNEL);
+        assertThat(testChannelLinked.getIdChannelDiscord()).isEqualTo(DEFAULT_ID_CHANNEL_DISCORD);
     }
 
     @Test
@@ -126,7 +126,7 @@ public class ChannelLinkedResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(channelLinked.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-            .andExpect(jsonPath("$.[*].idChannel").value(hasItem(DEFAULT_ID_CHANNEL)));
+            .andExpect(jsonPath("$.[*].idChannelDiscord").value(hasItem(DEFAULT_ID_CHANNEL_DISCORD)));
     }
     
     @Test
@@ -141,7 +141,7 @@ public class ChannelLinkedResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(channelLinked.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
-            .andExpect(jsonPath("$.idChannel").value(DEFAULT_ID_CHANNEL));
+            .andExpect(jsonPath("$.idChannelDiscord").value(DEFAULT_ID_CHANNEL_DISCORD));
     }
     @Test
     @Transactional
@@ -165,7 +165,7 @@ public class ChannelLinkedResourceIT {
         em.detach(updatedChannelLinked);
         updatedChannelLinked
             .name(UPDATED_NAME)
-            .idChannel(UPDATED_ID_CHANNEL);
+            .idChannelDiscord(UPDATED_ID_CHANNEL_DISCORD);
 
         restChannelLinkedMockMvc.perform(put("/api/channel-linkeds")
             .contentType(MediaType.APPLICATION_JSON)
@@ -177,7 +177,7 @@ public class ChannelLinkedResourceIT {
         assertThat(channelLinkedList).hasSize(databaseSizeBeforeUpdate);
         ChannelLinked testChannelLinked = channelLinkedList.get(channelLinkedList.size() - 1);
         assertThat(testChannelLinked.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testChannelLinked.getIdChannel()).isEqualTo(UPDATED_ID_CHANNEL);
+        assertThat(testChannelLinked.getIdChannelDiscord()).isEqualTo(UPDATED_ID_CHANNEL_DISCORD);
     }
 
     @Test

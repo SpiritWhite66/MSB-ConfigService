@@ -29,8 +29,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser
 public class RoleResourceIT {
 
-    private static final String DEFAULT_ID_DISCORD = "AAAAAAAAAA";
-    private static final String UPDATED_ID_DISCORD = "BBBBBBBBBB";
+    private static final String DEFAULT_ID_ROLE_DISCORD = "AAAAAAAAAA";
+    private static final String UPDATED_ID_ROLE_DISCORD = "BBBBBBBBBB";
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
@@ -54,7 +54,7 @@ public class RoleResourceIT {
      */
     public static Role createEntity(EntityManager em) {
         Role role = new Role()
-            .idDiscord(DEFAULT_ID_DISCORD)
+            .idRoleDiscord(DEFAULT_ID_ROLE_DISCORD)
             .name(DEFAULT_NAME);
         return role;
     }
@@ -66,7 +66,7 @@ public class RoleResourceIT {
      */
     public static Role createUpdatedEntity(EntityManager em) {
         Role role = new Role()
-            .idDiscord(UPDATED_ID_DISCORD)
+            .idRoleDiscord(UPDATED_ID_ROLE_DISCORD)
             .name(UPDATED_NAME);
         return role;
     }
@@ -90,7 +90,7 @@ public class RoleResourceIT {
         List<Role> roleList = roleRepository.findAll();
         assertThat(roleList).hasSize(databaseSizeBeforeCreate + 1);
         Role testRole = roleList.get(roleList.size() - 1);
-        assertThat(testRole.getIdDiscord()).isEqualTo(DEFAULT_ID_DISCORD);
+        assertThat(testRole.getIdRoleDiscord()).isEqualTo(DEFAULT_ID_ROLE_DISCORD);
         assertThat(testRole.getName()).isEqualTo(DEFAULT_NAME);
     }
 
@@ -116,10 +116,10 @@ public class RoleResourceIT {
 
     @Test
     @Transactional
-    public void checkIdDiscordIsRequired() throws Exception {
+    public void checkIdRoleDiscordIsRequired() throws Exception {
         int databaseSizeBeforeTest = roleRepository.findAll().size();
         // set the field null
-        role.setIdDiscord(null);
+        role.setIdRoleDiscord(null);
 
         // Create the Role, which fails.
 
@@ -163,7 +163,7 @@ public class RoleResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(role.getId().intValue())))
-            .andExpect(jsonPath("$.[*].idDiscord").value(hasItem(DEFAULT_ID_DISCORD)))
+            .andExpect(jsonPath("$.[*].idRoleDiscord").value(hasItem(DEFAULT_ID_ROLE_DISCORD)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
     }
     
@@ -178,7 +178,7 @@ public class RoleResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(role.getId().intValue()))
-            .andExpect(jsonPath("$.idDiscord").value(DEFAULT_ID_DISCORD))
+            .andExpect(jsonPath("$.idRoleDiscord").value(DEFAULT_ID_ROLE_DISCORD))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
     }
     @Test
@@ -202,7 +202,7 @@ public class RoleResourceIT {
         // Disconnect from session so that the updates on updatedRole are not directly saved in db
         em.detach(updatedRole);
         updatedRole
-            .idDiscord(UPDATED_ID_DISCORD)
+            .idRoleDiscord(UPDATED_ID_ROLE_DISCORD)
             .name(UPDATED_NAME);
 
         restRoleMockMvc.perform(put("/api/roles")
@@ -214,7 +214,7 @@ public class RoleResourceIT {
         List<Role> roleList = roleRepository.findAll();
         assertThat(roleList).hasSize(databaseSizeBeforeUpdate);
         Role testRole = roleList.get(roleList.size() - 1);
-        assertThat(testRole.getIdDiscord()).isEqualTo(UPDATED_ID_DISCORD);
+        assertThat(testRole.getIdRoleDiscord()).isEqualTo(UPDATED_ID_ROLE_DISCORD);
         assertThat(testRole.getName()).isEqualTo(UPDATED_NAME);
     }
 

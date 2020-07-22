@@ -32,8 +32,8 @@ public class UserAuthorizedResourceIT {
     private static final String DEFAULT_USER = "AAAAAAAAAA";
     private static final String UPDATED_USER = "BBBBBBBBBB";
 
-    private static final String DEFAULT_ID_DISCORD = "AAAAAAAAAA";
-    private static final String UPDATED_ID_DISCORD = "BBBBBBBBBB";
+    private static final String DEFAULT_ID_USER_DISCORD = "AAAAAAAAAA";
+    private static final String UPDATED_ID_USER_DISCORD = "BBBBBBBBBB";
 
     @Autowired
     private UserAuthorizedRepository userAuthorizedRepository;
@@ -55,7 +55,7 @@ public class UserAuthorizedResourceIT {
     public static UserAuthorized createEntity(EntityManager em) {
         UserAuthorized userAuthorized = new UserAuthorized()
             .user(DEFAULT_USER)
-            .idDiscord(DEFAULT_ID_DISCORD);
+            .idUserDiscord(DEFAULT_ID_USER_DISCORD);
         return userAuthorized;
     }
     /**
@@ -67,7 +67,7 @@ public class UserAuthorizedResourceIT {
     public static UserAuthorized createUpdatedEntity(EntityManager em) {
         UserAuthorized userAuthorized = new UserAuthorized()
             .user(UPDATED_USER)
-            .idDiscord(UPDATED_ID_DISCORD);
+            .idUserDiscord(UPDATED_ID_USER_DISCORD);
         return userAuthorized;
     }
 
@@ -91,7 +91,7 @@ public class UserAuthorizedResourceIT {
         assertThat(userAuthorizedList).hasSize(databaseSizeBeforeCreate + 1);
         UserAuthorized testUserAuthorized = userAuthorizedList.get(userAuthorizedList.size() - 1);
         assertThat(testUserAuthorized.getUser()).isEqualTo(DEFAULT_USER);
-        assertThat(testUserAuthorized.getIdDiscord()).isEqualTo(DEFAULT_ID_DISCORD);
+        assertThat(testUserAuthorized.getIdUserDiscord()).isEqualTo(DEFAULT_ID_USER_DISCORD);
     }
 
     @Test
@@ -135,10 +135,10 @@ public class UserAuthorizedResourceIT {
 
     @Test
     @Transactional
-    public void checkIdDiscordIsRequired() throws Exception {
+    public void checkIdUserDiscordIsRequired() throws Exception {
         int databaseSizeBeforeTest = userAuthorizedRepository.findAll().size();
         // set the field null
-        userAuthorized.setIdDiscord(null);
+        userAuthorized.setIdUserDiscord(null);
 
         // Create the UserAuthorized, which fails.
 
@@ -164,7 +164,7 @@ public class UserAuthorizedResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(userAuthorized.getId().intValue())))
             .andExpect(jsonPath("$.[*].user").value(hasItem(DEFAULT_USER)))
-            .andExpect(jsonPath("$.[*].idDiscord").value(hasItem(DEFAULT_ID_DISCORD)));
+            .andExpect(jsonPath("$.[*].idUserDiscord").value(hasItem(DEFAULT_ID_USER_DISCORD)));
     }
     
     @Test
@@ -179,7 +179,7 @@ public class UserAuthorizedResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(userAuthorized.getId().intValue()))
             .andExpect(jsonPath("$.user").value(DEFAULT_USER))
-            .andExpect(jsonPath("$.idDiscord").value(DEFAULT_ID_DISCORD));
+            .andExpect(jsonPath("$.idUserDiscord").value(DEFAULT_ID_USER_DISCORD));
     }
     @Test
     @Transactional
@@ -203,7 +203,7 @@ public class UserAuthorizedResourceIT {
         em.detach(updatedUserAuthorized);
         updatedUserAuthorized
             .user(UPDATED_USER)
-            .idDiscord(UPDATED_ID_DISCORD);
+            .idUserDiscord(UPDATED_ID_USER_DISCORD);
 
         restUserAuthorizedMockMvc.perform(put("/api/user-authorizeds")
             .contentType(MediaType.APPLICATION_JSON)
@@ -215,7 +215,7 @@ public class UserAuthorizedResourceIT {
         assertThat(userAuthorizedList).hasSize(databaseSizeBeforeUpdate);
         UserAuthorized testUserAuthorized = userAuthorizedList.get(userAuthorizedList.size() - 1);
         assertThat(testUserAuthorized.getUser()).isEqualTo(UPDATED_USER);
-        assertThat(testUserAuthorized.getIdDiscord()).isEqualTo(UPDATED_ID_DISCORD);
+        assertThat(testUserAuthorized.getIdUserDiscord()).isEqualTo(UPDATED_ID_USER_DISCORD);
     }
 
     @Test

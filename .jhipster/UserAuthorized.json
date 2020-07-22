@@ -9,7 +9,7 @@
       ]
     },
     {
-      "fieldName": "idDiscord",
+      "fieldName": "idUserDiscord",
       "fieldType": "String",
       "fieldValidateRules": [
         "required"
