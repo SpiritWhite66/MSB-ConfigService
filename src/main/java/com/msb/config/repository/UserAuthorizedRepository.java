@@ -11,6 +11,4 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface UserAuthorizedRepository extends JpaRepository<UserAuthorized, Long> {
-
-	Boolean existsUserAuthorizedByIdDiscord(String idDiscord);
 }
