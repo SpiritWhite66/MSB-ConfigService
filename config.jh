@@ -1,20 +1,28 @@
 entity ConfigCommon {
 	id Integer required
+    realName Integer
+    idGuildServer Integer required
     idBot Integer required
   	activated Boolean required
     type TypeConfig required
+    plateform Plateform required
 }
+
+enum Plateform {
+    TWITCH, DISCORD
+}
+
 enum TypeConfig {
     COMMAND, EVENT, OTHER
 }
 entity ChannelLinked {
 	name String 
-	idChannel String 
+	idChannelDiscord String 
 }
 
 entity UserAuthorized {
 	user String required
-    idDiscord String required
+    idUserDiscord String required
 }
 
 entity Alias {
@@ -22,7 +30,7 @@ entity Alias {
 }
 
 entity Role { 
-	idDiscord String required
+	idRoleDiscord String required
 	name String required
 }
 
