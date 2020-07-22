@@ -29,7 +29,7 @@ public class ConfigCommon implements Serializable {
     private Long id;
 
     @Column(name = "real_name")
-    private Integer realName;
+    private String realName;
 
     @NotNull
     @Column(name = "id_guild_server", nullable = false)
@@ -90,16 +90,16 @@ public class ConfigCommon implements Serializable {
         this.id = id;
     }
 
-    public Integer getRealName() {
+    public String getRealName() {
         return realName;
     }
 
-    public ConfigCommon realName(Integer realName) {
+    public ConfigCommon realName(String realName) {
         this.realName = realName;
         return this;
     }
 
-    public void setRealName(Integer realName) {
+    public void setRealName(String realName) {
         this.realName = realName;
     }
 
@@ -290,7 +290,7 @@ public class ConfigCommon implements Serializable {
     public String toString() {
         return "ConfigCommon{" +
             "id=" + getId() +
-            ", realName=" + getRealName() +
+            ", realName='" + getRealName() + "'" +
             ", idGuildServer=" + getIdGuildServer() +
             ", idBot=" + getIdBot() +
             ", activated='" + isActivated() + "'" +

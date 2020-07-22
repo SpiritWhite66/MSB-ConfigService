@@ -1,6 +1,6 @@
 entity ConfigCommon {
 	id Integer required
-    realName Integer
+    realName String
     idGuildServer Integer required
     idBot Integer required
   	activated Boolean required

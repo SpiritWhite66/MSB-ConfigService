@@ -39,8 +39,8 @@ import com.msb.config.domain.enumeration.Plateform;
 @WithMockUser
 public class ConfigCommonResourceIT {
 
-    private static final Integer DEFAULT_REAL_NAME = 1;
-    private static final Integer UPDATED_REAL_NAME = 2;
+    private static final String DEFAULT_REAL_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_REAL_NAME = "BBBBBBBBBB";
 
     private static final Integer DEFAULT_ID_GUILD_SERVER = 1;
     private static final Integer UPDATED_ID_GUILD_SERVER = 2;

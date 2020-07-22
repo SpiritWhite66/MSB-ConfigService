@@ -26,7 +26,4 @@ public interface ConfigCommonRepository extends JpaRepository<ConfigCommon, Long
 
     @Query("select configCommon from ConfigCommon configCommon left join fetch configCommon.aliases left join fetch configCommon.channelLinkeds left join fetch configCommon.userAuthorizeds left join fetch configCommon.roles where configCommon.id =:id")
     Optional<ConfigCommon> findOneWithEagerRelationships(@Param("id") Long id);
-
-    @Query("select configCommon from ConfigCommon configCommon left join fetch configCommon.aliases left join fetch configCommon.channelLinkeds left join fetch configCommon.userAuthorizeds left join fetch configCommon.roles where configCommon.idBot =:idBot")
-	Optional<ConfigCommon> findOneWithEagerRelationshipsByIdBot(@Param("idBot") Integer idBot);
 }

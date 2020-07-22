@@ -3,7 +3,7 @@
   "fields": [
     {
       "fieldName": "realName",
-      "fieldType": "Integer"
+      "fieldType": "String"
     },
     {
       "fieldName": "idGuildServer",
