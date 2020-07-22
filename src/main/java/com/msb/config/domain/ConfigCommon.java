@@ -12,6 +12,8 @@ import java.util.Set;
 
 import com.msb.config.domain.enumeration.TypeConfig;
 
+import com.msb.config.domain.enumeration.Plateform;
+
 /**
  * A ConfigCommon.
  */
@@ -26,6 +28,13 @@ public class ConfigCommon implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "real_name")
+    private Integer realName;
+
+    @NotNull
+    @Column(name = "id_guild_server", nullable = false)
+    private Integer idGuildServer;
+
     @NotNull
     @Column(name = "id_bot", nullable = false)
     private Integer idBot;
@@ -38,6 +47,11 @@ public class ConfigCommon implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
     private TypeConfig type;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "plateform", nullable = false)
+    private Plateform plateform;
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -74,6 +88,32 @@ public class ConfigCommon implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getRealName() {
+        return realName;
+    }
+
+    public ConfigCommon realName(Integer realName) {
+        this.realName = realName;
+        return this;
+    }
+
+    public void setRealName(Integer realName) {
+        this.realName = realName;
+    }
+
+    public Integer getIdGuildServer() {
+        return idGuildServer;
+    }
+
+    public ConfigCommon idGuildServer(Integer idGuildServer) {
+        this.idGuildServer = idGuildServer;
+        return this;
+    }
+
+    public void setIdGuildServer(Integer idGuildServer) {
+        this.idGuildServer = idGuildServer;
     }
 
     public Integer getIdBot() {
@@ -113,6 +153,19 @@ public class ConfigCommon implements Serializable {
 
     public void setType(TypeConfig type) {
         this.type = type;
+    }
+
+    public Plateform getPlateform() {
+        return plateform;
+    }
+
+    public ConfigCommon plateform(Plateform plateform) {
+        this.plateform = plateform;
+        return this;
+    }
+
+    public void setPlateform(Plateform plateform) {
+        this.plateform = plateform;
     }
 
     public Set<Alias> getAliases() {
@@ -237,9 +290,12 @@ public class ConfigCommon implements Serializable {
     public String toString() {
         return "ConfigCommon{" +
             "id=" + getId() +
+            ", realName=" + getRealName() +
+            ", idGuildServer=" + getIdGuildServer() +
             ", idBot=" + getIdBot() +
             ", activated='" + isActivated() + "'" +
             ", type='" + getType() + "'" +
+            ", plateform='" + getPlateform() + "'" +
             "}";
     }
 }

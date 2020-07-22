@@ -16,6 +16,12 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="real_name" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="id_guild_server" type="integer">
+                <constraints nullable="false" />
+            </column>
             <column name="id_bot" type="integer">
                 <constraints nullable="false" />
             </column>
@@ -23,6 +29,9 @@
                 <constraints nullable="false" />
             </column>
             <column name="type" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="plateform" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
@@ -92,9 +101,12 @@
                   separator=";"
                   tableName="config_common">
             <column name="id" type="numeric"/>
+            <column name="real_name" type="numeric"/>
+            <column name="id_guild_server" type="numeric"/>
             <column name="id_bot" type="numeric"/>
             <column name="activated" type="boolean"/>
             <column name="type" type="string"/>
+            <column name="plateform" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

@@ -2,7 +2,7 @@
   "name": "Role",
   "fields": [
     {
-      "fieldName": "idDiscord",
+      "fieldName": "idRoleDiscord",
       "fieldType": "String",
       "fieldValidateRules": [
         "required"

@@ -27,8 +27,8 @@ public class ChannelLinked implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "id_channel")
-    private String idChannel;
+    @Column(name = "id_channel_discord")
+    private String idChannelDiscord;
 
     @ManyToMany(mappedBy = "channelLinkeds")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -57,17 +57,17 @@ public class ChannelLinked implements Serializable {
         this.name = name;
     }
 
-    public String getIdChannel() {
-        return idChannel;
+    public String getIdChannelDiscord() {
+        return idChannelDiscord;
     }
 
-    public ChannelLinked idChannel(String idChannel) {
-        this.idChannel = idChannel;
+    public ChannelLinked idChannelDiscord(String idChannelDiscord) {
+        this.idChannelDiscord = idChannelDiscord;
         return this;
     }
 
-    public void setIdChannel(String idChannel) {
-        this.idChannel = idChannel;
+    public void setIdChannelDiscord(String idChannelDiscord) {
+        this.idChannelDiscord = idChannelDiscord;
     }
 
     public Set<ConfigCommon> getConfigCommons() {
@@ -118,7 +118,7 @@ public class ChannelLinked implements Serializable {
         return "ChannelLinked{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
-            ", idChannel='" + getIdChannel() + "'" +
+            ", idChannelDiscord='" + getIdChannelDiscord() + "'" +
             "}";
     }
 }

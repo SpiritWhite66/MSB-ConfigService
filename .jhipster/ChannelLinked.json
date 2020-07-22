@@ -6,7 +6,7 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "idChannel",
+      "fieldName": "idChannelDiscord",
       "fieldType": "String"
     }
   ],
