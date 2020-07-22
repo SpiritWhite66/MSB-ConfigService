@@ -30,8 +30,8 @@ public class UserAuthorized implements Serializable {
     private String user;
 
     @NotNull
-    @Column(name = "id_discord", nullable = false)
-    private String idDiscord;
+    @Column(name = "id_user_discord", nullable = false)
+    private String idUserDiscord;
 
     @ManyToMany(mappedBy = "userAuthorizeds")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -60,17 +60,17 @@ public class UserAuthorized implements Serializable {
         this.user = user;
     }
 
-    public String getIdDiscord() {
-        return idDiscord;
+    public String getIdUserDiscord() {
+        return idUserDiscord;
     }
 
-    public UserAuthorized idDiscord(String idDiscord) {
-        this.idDiscord = idDiscord;
+    public UserAuthorized idUserDiscord(String idUserDiscord) {
+        this.idUserDiscord = idUserDiscord;
         return this;
     }
 
-    public void setIdDiscord(String idDiscord) {
-        this.idDiscord = idDiscord;
+    public void setIdUserDiscord(String idUserDiscord) {
+        this.idUserDiscord = idUserDiscord;
     }
 
     public Set<ConfigCommon> getConfigCommons() {
@@ -121,7 +121,7 @@ public class UserAuthorized implements Serializable {
         return "UserAuthorized{" +
             "id=" + getId() +
             ", user='" + getUser() + "'" +
-            ", idDiscord='" + getIdDiscord() + "'" +
+            ", idUserDiscord='" + getIdUserDiscord() + "'" +
             "}";
     }
 }

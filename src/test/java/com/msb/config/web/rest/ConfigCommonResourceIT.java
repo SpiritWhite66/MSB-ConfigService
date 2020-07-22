@@ -29,6 +29,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.msb.config.domain.enumeration.TypeConfig;
+import com.msb.config.domain.enumeration.Plateform;
 /**
  * Integration tests for the {@link ConfigCommonResource} REST controller.
  */
@@ -38,6 +39,12 @@ import com.msb.config.domain.enumeration.TypeConfig;
 @WithMockUser
 public class ConfigCommonResourceIT {
 
+    private static final Integer DEFAULT_REAL_NAME = 1;
+    private static final Integer UPDATED_REAL_NAME = 2;
+
+    private static final Integer DEFAULT_ID_GUILD_SERVER = 1;
+    private static final Integer UPDATED_ID_GUILD_SERVER = 2;
+
     private static final Integer DEFAULT_ID_BOT = 1;
     private static final Integer UPDATED_ID_BOT = 2;
 
@@ -46,6 +53,9 @@ public class ConfigCommonResourceIT {
 
     private static final TypeConfig DEFAULT_TYPE = TypeConfig.COMMAND;
     private static final TypeConfig UPDATED_TYPE = TypeConfig.EVENT;
+
+    private static final Plateform DEFAULT_PLATEFORM = Plateform.TWITCH;
+    private static final Plateform UPDATED_PLATEFORM = Plateform.DISCORD;
 
     @Autowired
     private ConfigCommonRepository configCommonRepository;
@@ -69,9 +79,12 @@ public class ConfigCommonResourceIT {
      */
     public static ConfigCommon createEntity(EntityManager em) {
         ConfigCommon configCommon = new ConfigCommon()
+            .realName(DEFAULT_REAL_NAME)
+            .idGuildServer(DEFAULT_ID_GUILD_SERVER)
             .idBot(DEFAULT_ID_BOT)
             .activated(DEFAULT_ACTIVATED)
-            .type(DEFAULT_TYPE);
+            .type(DEFAULT_TYPE)
+            .plateform(DEFAULT_PLATEFORM);
         return configCommon;
     }
     /**
@@ -82,9 +95,12 @@ public class ConfigCommonResourceIT {
      */
     public static ConfigCommon createUpdatedEntity(EntityManager em) {
         ConfigCommon configCommon = new ConfigCommon()
+            .realName(UPDATED_REAL_NAME)
+            .idGuildServer(UPDATED_ID_GUILD_SERVER)
             .idBot(UPDATED_ID_BOT)
             .activated(UPDATED_ACTIVATED)
-            .type(UPDATED_TYPE);
+            .type(UPDATED_TYPE)
+            .plateform(UPDATED_PLATEFORM);
         return configCommon;
     }
 
@@ -107,9 +123,12 @@ public class ConfigCommonResourceIT {
         List<ConfigCommon> configCommonList = configCommonRepository.findAll();
         assertThat(configCommonList).hasSize(databaseSizeBeforeCreate + 1);
         ConfigCommon testConfigCommon = configCommonList.get(configCommonList.size() - 1);
+        assertThat(testConfigCommon.getRealName()).isEqualTo(DEFAULT_REAL_NAME);
+        assertThat(testConfigCommon.getIdGuildServer()).isEqualTo(DEFAULT_ID_GUILD_SERVER);
         assertThat(testConfigCommon.getIdBot()).isEqualTo(DEFAULT_ID_BOT);
         assertThat(testConfigCommon.isActivated()).isEqualTo(DEFAULT_ACTIVATED);
         assertThat(testConfigCommon.getType()).isEqualTo(DEFAULT_TYPE);
+        assertThat(testConfigCommon.getPlateform()).isEqualTo(DEFAULT_PLATEFORM);
     }
 
     @Test
@@ -131,6 +150,25 @@ public class ConfigCommonResourceIT {
         assertThat(configCommonList).hasSize(databaseSizeBeforeCreate);
     }
 
+
+    @Test
+    @Transactional
+    public void checkIdGuildServerIsRequired() throws Exception {
+        int databaseSizeBeforeTest = configCommonRepository.findAll().size();
+        // set the field null
+        configCommon.setIdGuildServer(null);
+
+        // Create the ConfigCommon, which fails.
+
+
+        restConfigCommonMockMvc.perform(post("/api/config-commons")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(configCommon)))
+            .andExpect(status().isBadRequest());
+
+        List<ConfigCommon> configCommonList = configCommonRepository.findAll();
+        assertThat(configCommonList).hasSize(databaseSizeBeforeTest);
+    }
 
     @Test
     @Transactional
@@ -191,6 +229,25 @@ public class ConfigCommonResourceIT {
 
     @Test
     @Transactional
+    public void checkPlateformIsRequired() throws Exception {
+        int databaseSizeBeforeTest = configCommonRepository.findAll().size();
+        // set the field null
+        configCommon.setPlateform(null);
+
+        // Create the ConfigCommon, which fails.
+
+
+        restConfigCommonMockMvc.perform(post("/api/config-commons")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(configCommon)))
+            .andExpect(status().isBadRequest());
+
+        List<ConfigCommon> configCommonList = configCommonRepository.findAll();
+        assertThat(configCommonList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllConfigCommons() throws Exception {
         // Initialize the database
         configCommonRepository.saveAndFlush(configCommon);
@@ -200,9 +257,12 @@ public class ConfigCommonResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(configCommon.getId().intValue())))
+            .andExpect(jsonPath("$.[*].realName").value(hasItem(DEFAULT_REAL_NAME)))
+            .andExpect(jsonPath("$.[*].idGuildServer").value(hasItem(DEFAULT_ID_GUILD_SERVER)))
             .andExpect(jsonPath("$.[*].idBot").value(hasItem(DEFAULT_ID_BOT)))
             .andExpect(jsonPath("$.[*].activated").value(hasItem(DEFAULT_ACTIVATED.booleanValue())))
-            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())));
+            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
+            .andExpect(jsonPath("$.[*].plateform").value(hasItem(DEFAULT_PLATEFORM.toString())));
     }
     
     @SuppressWarnings({"unchecked"})
@@ -236,9 +296,12 @@ public class ConfigCommonResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(configCommon.getId().intValue()))
+            .andExpect(jsonPath("$.realName").value(DEFAULT_REAL_NAME))
+            .andExpect(jsonPath("$.idGuildServer").value(DEFAULT_ID_GUILD_SERVER))
             .andExpect(jsonPath("$.idBot").value(DEFAULT_ID_BOT))
             .andExpect(jsonPath("$.activated").value(DEFAULT_ACTIVATED.booleanValue()))
-            .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()));
+            .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
+            .andExpect(jsonPath("$.plateform").value(DEFAULT_PLATEFORM.toString()));
     }
     @Test
     @Transactional
@@ -261,9 +324,12 @@ public class ConfigCommonResourceIT {
         // Disconnect from session so that the updates on updatedConfigCommon are not directly saved in db
         em.detach(updatedConfigCommon);
         updatedConfigCommon
+            .realName(UPDATED_REAL_NAME)
+            .idGuildServer(UPDATED_ID_GUILD_SERVER)
             .idBot(UPDATED_ID_BOT)
             .activated(UPDATED_ACTIVATED)
-            .type(UPDATED_TYPE);
+            .type(UPDATED_TYPE)
+            .plateform(UPDATED_PLATEFORM);
 
         restConfigCommonMockMvc.perform(put("/api/config-commons")
             .contentType(MediaType.APPLICATION_JSON)
@@ -274,9 +340,12 @@ public class ConfigCommonResourceIT {
         List<ConfigCommon> configCommonList = configCommonRepository.findAll();
         assertThat(configCommonList).hasSize(databaseSizeBeforeUpdate);
         ConfigCommon testConfigCommon = configCommonList.get(configCommonList.size() - 1);
+        assertThat(testConfigCommon.getRealName()).isEqualTo(UPDATED_REAL_NAME);
+        assertThat(testConfigCommon.getIdGuildServer()).isEqualTo(UPDATED_ID_GUILD_SERVER);
         assertThat(testConfigCommon.getIdBot()).isEqualTo(UPDATED_ID_BOT);
         assertThat(testConfigCommon.isActivated()).isEqualTo(UPDATED_ACTIVATED);
         assertThat(testConfigCommon.getType()).isEqualTo(UPDATED_TYPE);
+        assertThat(testConfigCommon.getPlateform()).isEqualTo(UPDATED_PLATEFORM);
     }
 
     @Test

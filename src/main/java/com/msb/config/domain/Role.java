@@ -26,8 +26,8 @@ public class Role implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "id_discord", nullable = false)
-    private String idDiscord;
+    @Column(name = "id_role_discord", nullable = false)
+    private String idRoleDiscord;
 
     @NotNull
     @Column(name = "name", nullable = false)
@@ -47,17 +47,17 @@ public class Role implements Serializable {
         this.id = id;
     }
 
-    public String getIdDiscord() {
-        return idDiscord;
+    public String getIdRoleDiscord() {
+        return idRoleDiscord;
     }
 
-    public Role idDiscord(String idDiscord) {
-        this.idDiscord = idDiscord;
+    public Role idRoleDiscord(String idRoleDiscord) {
+        this.idRoleDiscord = idRoleDiscord;
         return this;
     }
 
-    public void setIdDiscord(String idDiscord) {
-        this.idDiscord = idDiscord;
+    public void setIdRoleDiscord(String idRoleDiscord) {
+        this.idRoleDiscord = idRoleDiscord;
     }
 
     public String getName() {
@@ -120,7 +120,7 @@ public class Role implements Serializable {
     public String toString() {
         return "Role{" +
             "id=" + getId() +
-            ", idDiscord='" + getIdDiscord() + "'" +
+            ", idRoleDiscord='" + getIdRoleDiscord() + "'" +
             ", name='" + getName() + "'" +
             "}";
     }
