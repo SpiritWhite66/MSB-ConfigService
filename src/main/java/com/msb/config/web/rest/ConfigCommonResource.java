@@ -2,6 +2,7 @@ package com.msb.config.web.rest;
 
 import com.msb.config.domain.ConfigCommon;
 import com.msb.config.repository.ConfigCommonRepository;
+import com.msb.config.service.ConfigService;
 import com.msb.config.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -35,9 +36,12 @@ public class ConfigCommonResource {
     private String applicationName;
 
     private final ConfigCommonRepository configCommonRepository;
+    private final ConfigService configService;
 
-    public ConfigCommonResource(ConfigCommonRepository configCommonRepository) {
+    
+    public ConfigCommonResource(ConfigCommonRepository configCommonRepository, ConfigService configService) {
         this.configCommonRepository = configCommonRepository;
+        this.configService = configService;
     }
 
     /**
@@ -53,7 +57,10 @@ public class ConfigCommonResource {
         if (configCommon.getId() != null) {
             throw new BadRequestAlertException("A new configCommon cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        ConfigCommon result = configCommonRepository.save(configCommon);
+        
+        //ConfigCommon result = configCommonRepository.save(configCommon);
+        ConfigCommon result = configService.create(configCommon);
+        
         return ResponseEntity.created(new URI("/api/config-commons/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -102,6 +109,13 @@ public class ConfigCommonResource {
     public ResponseEntity<ConfigCommon> getConfigCommon(@PathVariable Long id) {
         log.debug("REST request to get ConfigCommon : {}", id);
         Optional<ConfigCommon> configCommon = configCommonRepository.findOneWithEagerRelationships(id);
+        return ResponseUtil.wrapOrNotFound(configCommon);
+    }
+    
+    @GetMapping("/config-commons/{command}/{idBot}")
+    public ResponseEntity<ConfigCommon> getConfigCommon(@PathVariable String command, @PathVariable Integer idBot) {
+        log.debug("REST request to get ConfigCommon : {}", idBot);
+        Optional<ConfigCommon> configCommon = configCommonRepository.findOneWithEagerRelationshipsByIdBot(idBot);
         return ResponseUtil.wrapOrNotFound(configCommon);
     }
 

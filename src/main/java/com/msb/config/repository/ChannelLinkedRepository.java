@@ -11,4 +11,11 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface ChannelLinkedRepository extends JpaRepository<ChannelLinked, Long> {
+
+	/**
+	 * 
+	 * @param idChannel
+	 * @return
+	 */
+	Boolean existsChannelLinkedByIdChannel(String idChannel);
 }
